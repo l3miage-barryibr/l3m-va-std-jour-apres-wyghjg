@@ -7,7 +7,7 @@ import { Assertion, LogTests } from './utils';
 /***********************************************************************************************************************
  * A FAIRE : Complétez avec votre mail UGA
  */
-const mailIdentification = 'prénom.nom@etu.univ-grenoble-alpes.fr';
+const mailIdentification = 'ibrahima.barry2@etu.univ-grenoble-alpes.fr';
 
 /***********************************************************************************************************************
  * A FAIRE : Liste de tests à effectuer
@@ -16,12 +16,57 @@ const mailIdentification = 'prénom.nom@etu.univ-grenoble-alpes.fr';
  *   - expectedResult : le résultat attendu
  *   - comment : un commentaire sous forme de chaine de caractère
  */
-const tests: Assertion<Parameters<typeof jourAprès>, ReturnType<typeof jourAprès>>[] = [
+const tests: Assertion<
+  Parameters<typeof jourAprès>,
+  ReturnType<typeof jourAprès>
+>[] = [
   // Pour étudiants
   { args: [[4, 2, 1]], expectedResult: [5, 2, 1], comment: '' },
-  { args: [[1.4, 12, 4]], expectedError: "date invalide", comment: 'les jours doivent être entiers.' },
+  {
+    args: [[1.4, 12, 4]],
+    expectedError: 'date invalide',
+    comment: 'les jours doivent être entiers.',
+  },
+  // Test pour le mois de février
+  {
+    args: [[30, 2, 4]],
+    expectedError: 'date invalide',
+    comment: 'le moi de février n atteint pas 30.',
+  },
+  {
+    args: [[30, 2, 7]],
+    expectedError: 'date invalide',
+    comment: 'le moi de février n atteint pas 30.',
+  },
+  {
+    args: [[31, 2, 4]],
+    expectedError: 'date invalide',
+    comment: 'le moi de février n atteint pas 31.',
+  },
+  {
+    args: [[31, 2, 5]],
+    expectedError: 'date invalide',
+    comment: 'le moi de février n ateint pas 31.',
+  },
+  {
+    args: [[29, 2, 5]],
+    expectedError: 'date invalide',
+    comment: 'le moi de février n atteint pas 31.',
+  },
+  // Test pour les mois de 30 jours
+  { args: [[30, 4, 4]], expectedResult: [1, 5, 4], comment: '' },
+  { args: [[30, 6, 5]], expectedResult: [1, 7, 5], comment: '' },
+  { args: [[30, 9, 20]], expectedResult: [1, 10, 20], comment: '' },
+  { args: [[30, 11, 40]], expectedResult: [1, 12, 40], comment: '' },
+  // Test sur les mois de 31 jours
+  { args: [[31, 1, 8]], expectedResult: [1, 2, 8], comment: '' },
+  { args: [[31, 3, 8]], expectedResult: [1, 4, 8], comment: '' },
+  { args: [[31, 5, 5]], expectedResult: [1, 6, 5], comment: '' },
+  { args: [[31, 7, 20]], expectedResult: [1, 8, 20], comment: '' },
+  { args: [[31, 8, 2023]], expectedResult: [1, 9, 2023], comment: '' },
+  { args: [[31, 10, 2022]], expectedResult: [1, 11, 2022], comment: '' },
+  { args: [[31, 12, 2008]], expectedResult: [1, 1, 2009], comment: '' },
 ];
-
 
 
 
